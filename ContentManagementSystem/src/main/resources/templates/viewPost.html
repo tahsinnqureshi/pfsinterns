@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Existing CSS styles */
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('https://pixlr.com/images/index/ai-image-generator-one.webp') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+        }
+
+        .fixed-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 15px 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+        }
+
+        .header-content {
+            margin-left: 30px;
+            margin-right: 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 700;
+            font-style: italic;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            position: relative;
+        }
+
+        .underline-link {
+            text-decoration: underline;
+        }
+
+        nav ul li a:hover::after, 
+        nav ul li a.active-link::after { 
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            width: 100%;
+            height: 2px;
+            background-color: #fff;
+        }
+
+        nav ul li a.active-link {
+            text-decoration: underline; 
+        }
+
+        main {
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .dashboard {
+            margin-bottom: 40px;
+        }
+
+        .dashboard h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .dashboard p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .post-form {
+            background-color: rgba(0, 0, 0, 0.75);
+            padding: 30px 20px;
+            border-radius: 10px;
+            max-width: 1000px;
+            margin: 0 auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .post-form h3 {
+            font-size: 20px;
+            margin-bottom: 30px;
+            text-decoration: underline;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+            margin-left: 100px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="file"] {
+            width: 200px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .post-form button {
+            padding: 10px 20px;
+            background-color: #ff8800;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .post-form button:hover {
+            background-color: #e67600;
+        }
+
+        .form-group textarea {
+            width: 75%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+            color: #333;
+            resize: vertical;
+            height: 150px;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+            display: block;
+        }
+
+        .post-table {
+            width: 100%;
+            margin-bottom: 40px;
+            padding: 0 20px; /* Add padding to the sides */
+            box-sizing: border-box; /* Ensure padding is included in the element's width */
+        }
+
+        .post-table table {
+            width: 100%;
+            margin: 0 auto;
+            border-collapse: collapse;
+            background-color: rgba(0, 0, 0, 0.75); /* Dark background with opacity */
+        }
+
+        .post-table th,
+        .post-table td {
+            border: 1px solid rgba(255, 255, 255, 0.5); /* Semi-transparent border */
+            padding: 10px;
+            text-align: left;
+        }
+
+        .post-table th {
+            background-color: rgba(0, 0, 0, 0.5); /* Transparent background for header */
+            color: #fff;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .post-table img {
+            width: 50px;
+            height: auto;
+        }
+
+        .actions-container {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            padding: 0 20px; /* Add padding to the sides */
+            box-sizing: border-box; /* Ensure padding is included in the element's width */
+        }
+
+        .actions-container button {
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .actions-container .search-input {
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 150px;
+        }
+
+        .actions-container .search-btn {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+        }
+
+        .actions-container .search-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .actions-container .edit-btn {
+            background-color: #ffc107;
+            color: #333;
+            border: none;
+        }
+
+        .actions-container .edit-btn:hover {
+            background-color: #e0a800;
+        }
+
+        .actions-container .delete-btn {
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+        }
+
+        .actions-container .delete-btn:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <header class="fixed-header">
+        <div class="header-content">
+            <h1 th:text="'Welcome ' + ${user.firstName} + ' ' + ${user.lastName}"></h1>
+            <nav>
+                <ul>
+                    <li><a href="/logout">Logout</a></li>
+                    <li><a href="/newContent">📝 New Post</a></li>
+                    <li><a href="/welcomePage">👁️ Go To Home</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="dashboard">
+            <h2>Welcome to Admin Panel</h2>
+            <p>This is your Dashboard, where you can manage your posts.</p>
+        </section>
+
+        <section class="post-table">
+            <h2 class="underline-link">View Post</h2>
+            <!-- Form for search functionality -->
+			<p th:text="${ msg}" class="text-danger"></p>
+            <form th:action="@{/search}" method="get" class="actions-container">
+                <input type="text" name="pId" class="search-input" placeholder="Enter Post Number">
+                <button type="submit" class="search-btn">Search</button>
+            </form>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Post ID</th>
+                        <th>Post Date</th>
+                        <th>Post Author</th>
+                        <th>Post Title</th>
+                        <th>Post Image</th>
+                        <th>Post Content</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="content, iter : ${contentList}">
+                        <td th:text="${content.pId}"></td>
+                        <td th:text="${content.publishedDate}"></td>
+                        <td th:text="${content.pAuthor}"></td>
+                        <td th:text="${content.pTitle}"></td>
+                        <td>
+                            <img th:src="'data:image/jpeg;base64,' + ${imgDataList[iter.index]}" alt="Content Image"/>
+                        </td>
+                        <td th:text="${content.content}"></td>
+                        <td>
+                            <!-- Edit button -->
+							<form th:action="@{/edit}" method="get">
+							    <input type="hidden" name="pId" th:value="${content.pId}" />
+							    <button type="submit">Edit</button>
+							</form>
+
+                            <!-- Delete button -->
+                            <form th:action="@{/delete?{id}(id=${content.pId})}" method="post" style="display:inline;">
+								<input type="hidden" name="pId" th:value="${content.pId}" />
+                                <button type="submit" class="delete-btn">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+</body>
+</html>

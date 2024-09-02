@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="practice.css">
+    
+    <style>
+		body {
+		    font-family: Arial, sans-serif;
+		    margin: 0;
+		    padding: 0;
+		    background: url('https://pixlr.com/images/index/ai-image-generator-one.webp') no-repeat center center fixed;
+		    background-size: cover;
+		    color: #fff;
+		}
+
+		.fixed-header {
+		    position: fixed;
+		    top: 0;
+		    left: 0;
+		    width: 100%;
+		    background-color: rgba(0, 0, 0, 0.9);
+		    color: white;
+		    padding: 15px 30px;
+		    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+		    z-index: 1000; /* Ensures the header stays above other content */
+		}
+
+		.header-content {
+		    margin-left: 30px;
+		    margin-right: 50px;
+		    display: flex;
+		    justify-content: space-between;
+		    align-items: center;
+		}
+
+		header h1 {
+		    margin: 0;
+		    font-size: 28px;
+		    font-weight: 700;
+			font-style: italic;
+
+		}
+
+		nav ul {
+		    list-style: none;
+		    margin: 0;
+		    padding: 0;
+		    display: flex;
+		    gap: 20px;
+		}
+
+		nav ul li {
+		    display: inline;
+		}
+
+		nav ul li a {
+		    color: #fff;
+		    text-decoration: none;
+		    font-weight: 500;
+		    font-size: 16px;
+		}
+
+		main {
+		    padding: 50px 20px;
+		    text-align: center;
+		}
+
+		.dashboard {
+		    margin-bottom: 40px;
+		}
+
+		.dashboard h2 {
+		    font-size: 24px;
+		    margin-bottom: 10px;
+		}
+
+		.dashboard p {
+		    font-size: 18px;
+		    margin-bottom: 20px;
+		}
+
+		.post-form {
+		    background-color: rgba(0, 0, 0, 0.75);
+		    padding: 30px 20px;
+		    border-radius: 10px;
+		    max-width: 1000px;
+		    margin: 0 auto;
+		    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+		}
+
+		.post-form h3 {
+		    font-size: 20px;
+		    margin-bottom: 30px;
+		    text-decoration: underline;
+		}
+
+		.form-group {
+		    margin-bottom: 20px;
+		    text-align: left;
+		    margin-left: 100px;
+		}
+
+		.form-group label {
+		    display: block;
+		    font-size: 16px;
+		    margin-bottom: 5px;
+		}
+
+		.form-group input[type="text"] {
+		    width: 200px;
+		    padding: 10px;
+		    border: 1px solid #ccc;
+		    border-radius: 5px;
+		    font-size: 14px;
+		    color: #333;
+		}
+
+		.form-group input[type="file"] {
+		    width: 200px;
+		    padding: 10px;
+		    border: 1px solid #ccc;
+		    border-radius: 5px;
+		    font-size: 14px;
+		    color: #333;
+		}
+		.post-form button {
+		    padding: 10px 20px;
+		    background-color: #ff8800;
+		    border: none;
+		    border-radius: 5px;
+		    color: #fff;
+		    font-size: 16px;
+		    cursor: pointer;
+		}
+
+		.post-form button:hover {
+		    background-color: #e67600;
+		}
+
+		/* Existing styles */
+
+		.form-group textarea {
+		    width: 75%;
+		    padding: 10px;
+		    border: 1px solid #ccc;
+		    border-radius: 5px;
+		    font-size: 14px;
+		    color: #333;
+		    resize: vertical;
+		    height: 150px;
+		}
+
+		.error-message {
+		    color: red;
+		    font-size: 14px;
+		    margin-top: 5px;
+		    display: block;
+		}
+
+    </style>
+</head>
+<body>
+    <header class="fixed-header">
+        <div class="header-content">
+			<h1 th:text="'Welcome ' + ${user.firstName} + ' ' + ${user.lastName}"></h1>
+            <nav>
+                <ul>
+                    
+					<li><a href="/newContent">📝 New Post</a></li>
+                    <li><a href="/view-post">👁️ View Posts</a></li>
+					<li><a href="/logout">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="dashboard">
+            <h2>Welcome to Admin Panel</h2>
+            <p>This is your Dashboard, where you can manage your posts.</p>
+        </section>
+    </main>
+
+   
+</body>
+</html>

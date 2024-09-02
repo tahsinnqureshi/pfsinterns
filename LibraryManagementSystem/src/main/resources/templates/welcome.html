@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attractive Navbar with Toggle</title>
+	<link rel="stylesheet" th:href="@{welcome.css}"/>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <span class="toggle-btn" onclick="toggleNavbar()"><i class="fas fa-bars"></i></span>
+        <div class="brand">LIBRARY MANAGEMENT SYSTEM</div>
+        <div class="nav-links" id="navLinks">
+            <a href="/index"><i class="fas fa-home"></i> Home</a>
+            <a href="/"><i class="fas fa-info-circle"></i> About</a>
+            <a href="#services" onclick="toggleServices()"><i class="fas fa-concierge-bell"></i> Services</a>
+            <div id="servicesSubmenu" class="submenu">
+                <a href="/add-book"><i class="fas fa-book-open"></i> Add New Books</a>
+                <a href="/add-borrow"><i class="fas fa-book"></i> Issue Books</a>
+                <a href="/transaction"><i class="fa fa-history"></i> Transaction History</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="content">
+        <h1>Welcome to Library Management System</h1>
+        <p>We have developed a library management system to efficiently manage books, borrowers, and
+            transactions within a library. The system provides functionalities for librarians to add
+            new books, manage borrower information, issue and return books, and generate reports.
+            It has functionality to perform CRUD operations on books and borrowers, as well as issue and return books.
+            Data is stored in a relational database using an object-relational
+            mapping (ORM) framework. The complete project uses Java as the backend language.</p>
+    </div>
+
+	<script th:src="@{welcome.js}"></script>
+</body>
+</html>
